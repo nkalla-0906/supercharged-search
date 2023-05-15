@@ -1,0 +1,27 @@
+from googlesearch import search
+import pandas as pd
+
+def search_college_tuition(college_name):
+    query = college_name + " Tuition Fees 2023"
+    for url in search(query, num_results=1):
+        return url
+
+# List of college names
+college_names = ['NYU', 'Stanford', 'University of Warwick', 'Santa Clara University', 'CUNY Hunter College']
+
+# Initialize an empty list to store the results
+results = []
+
+# Iterate over the list of colleges
+for college_name in college_names:
+    # Search for college name and tuition fees on Google
+    search_result_url = search_college_tuition(college_name)
+    
+    # Append the results to the list
+    results.append({'College': college_name, 'First search result': search_result_url})
+
+# Create a pandas DataFrame from the results list
+df = pd.DataFrame(results)
+
+# Save the DataFrame to an Excel file
+df.to_excel('college_tuition_results.xlsx', index=False)
